@@ -1,0 +1,56 @@
+@page "/admin/role-permissions"
+@attribute [Authorize(Policy = AppPermissions.CanManageRbac)]
+
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Dynamic RBAC Permission Matrix</h1>
+            <p class="text-slate-600 text-sm mt-1">
+                Configure granular permissions per role. At login, permissions are resolved dynamically and loaded as Claims.
+            </p>
+        </div>
+        <button type="button"
+                @onclick="SaveMatrixAsync"
+                class="inline-flex items-center px-5 py-2.5 bg-brand-primary hover:bg-brand-accent text-white font-medium rounded-lg shadow-sm transition">
+            Save All Permissions
+        </button>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left">
+                <thead class="bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <tr>
+                        <th class="px-6 py-4 w-1/3">Granular Permission</th>
+                        @foreach (var role in roles)
+                        {
+                            <th class="px-6 py-4 text-center">@role.Name</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm">
+                    @foreach (var perm in AppPermissions.All)
+                    {
+                        var desc = AppPermissions.Descriptions.GetValueOrDefault(perm, "");
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="px-6 py-4">
+                                <div class="font-mono text-xs font-bold text-brand-primary">@perm</div>
+                                <div class="text-xs text-slate-500 mt-0.5">@desc</div>
+                            </td>
+                            @foreach (var role in roles)
+                            {
+                                var isAssigned = matrix.TryGetValue(role.Id, out var perms) && perms.Contains(perm);
+                                <td class="px-6 py-4 text-center">
+                                    <input type="checkbox"
+                                           checked="@isAssigned"
+                                           @onchange="(e) => TogglePermission(role.Id, perm, (bool)(e.Value ?? false))"
+                                           class="w-5 h-5 text-brand-primary rounded border-slate-300 focus:ring-brand-accent cursor-pointer" />
+                                </td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

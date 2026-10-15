@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="10.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="10.0.13">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="10.0.13" />
+  </ItemGroup>
+
+  <Target Name="BuildTailwind" BeforeTargets="BeforeBuild">
+    <PropertyGroup>
+      <TailwindVersion>v3.4.13</TailwindVersion>
+      <TailwindExe>$(MSBuildProjectDirectory)\.tools\tailwindcss-windows-x64.exe</TailwindExe>
+      <TailwindUrl>https://github.com/tailwindlabs/tailwindcss/releases/download/$(TailwindVersion)/tailwindcss-windows-x64.exe</TailwindUrl>
+    </PropertyGroup>
+    <MakeDir Directories="$(MSBuildProjectDirectory)\.tools" Condition="!Exists('$(TailwindExe)')" />
+    <Exec Command="curl.exe -sL $(TailwindUrl) -o &quot;$(TailwindExe)&quot;" Condition="!Exists('$(TailwindExe)')" />
+    <Exec Command="&quot;$(TailwindExe)&quot; -i .\Styles\input.css -o .\wwwroot\css\site.css --minify" />
+  </Target>
+</Project>

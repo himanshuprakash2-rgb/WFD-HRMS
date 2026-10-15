@@ -1,0 +1,132 @@
+is_global = true
+build_property.TargetFramework = net10.0
+build_property.TargetFramework = net10.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.TargetFrameworkIdentifier = .NETCoreApp
+build_property.TargetFrameworkVersion = v10.0
+build_property.EntryPointFilePath = 
+build_property.RootNamespace = WfdHrms
+build_property.RootNamespace = WfdHrms
+build_property.ProjectDir = D:\WFD HRMS\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 10.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = D:\WFD HRMS
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 10.0
+build_property.EnableCodeStyleSeverity = 
+
+[D:/WFD HRMS/Components/App.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xBcHAucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTWFpbkxheW91dC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXlvdXRcTmF2TWVudS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/Branches/BranchEdit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxCcmFuY2hlc1xCcmFuY2hFZGl0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/Branches/BranchList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxCcmFuY2hlc1xCcmFuY2hMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/BranchPayroll/BranchPayrollMapping.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxCcmFuY2hQYXlyb2xsXEJyYW5jaFBheXJvbGxNYXBwaW5nLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/PayrollFirms/PayrollFirmEdit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxQYXlyb2xsRmlybXNcUGF5cm9sbEZpcm1FZGl0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/PayrollFirms/PayrollFirmList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxQYXlyb2xsRmlybXNcUGF5cm9sbEZpcm1MaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/Rbac/RoleCreate.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxSYmFjXFJvbGVDcmVhdGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/Rbac/RoleList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxSYmFjXFJvbGVMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/Rbac/RolePermissions.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxSYmFjXFJvbGVQZXJtaXNzaW9ucy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/Rbac/UserRoleEdit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxSYmFjXFVzZXJSb2xlRWRpdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/Rbac/UserRoles.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxSYmFjXFVzZXJSb2xlcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Admin/UserBranches/UserBranchAssign.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xBZG1pblxVc2VyQnJhbmNoZXNcVXNlckJyYW5jaEFzc2lnbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Dashboard.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xEYXNoYm9hcmQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xMb2dpbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Onboarding/OnboardingEdit.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPbmJvYXJkaW5nXE9uYm9hcmRpbmdFZGl0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Onboarding/OnboardingList.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPbmJvYXJkaW5nXE9uYm9hcmRpbmdMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Pages/Onboarding/OnboardingReview.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQYWdlc1xPbmJvYXJkaW5nXE9uYm9hcmRpbmdSZXZpZXcucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Routes.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xSb3V0ZXMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Shared/ConfirmDialog.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcQ29uZmlybURpYWxvZy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Shared/RedirectToLogin.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcUmVkaXJlY3RUb0xvZ2luLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Shared/StatusBadge.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcU3RhdHVzQmFkZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/Shared/ToastContainer.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaGFyZWRcVG9hc3RDb250YWluZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WFD HRMS/Components/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xfSW1wb3J0cy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 

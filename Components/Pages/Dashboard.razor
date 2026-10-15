@@ -1,0 +1,174 @@
+@page "/dashboard"
+@attribute [Authorize]
+
+<div class="space-y-8">
+    <!-- Welcome Header -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+            <div class="inline-flex items-center space-x-2 px-3 py-1 bg-blue-50 text-brand-primary text-xs font-semibold rounded-full mb-3">
+                <span>SWIFT HRMS</span>
+                <span>&bull;</span>
+                <span>Security Workers Information &amp; Finance Tool</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800">
+                Welcome, @userFullName
+            </h1>
+            <p class="text-slate-600 text-sm mt-1">
+                Centralized workforce operations, multi-branch compliance, and access management portal.
+            </p>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <span class="px-3.5 py-1.5 bg-slate-100 text-slate-700 text-xs font-bold rounded-lg border border-slate-200 uppercase tracking-wide">
+                @userRolesDisplay
+            </span>
+        </div>
+    </div>
+
+    <!-- Administrative Operations Section (Guarded by Claims) -->
+    <AuthorizeView Policy="@AppPermissions.CanManageMasterData">
+        <div class="space-y-4">
+            <div>
+                <h2 class="text-lg font-bold text-slate-800">Master Data Administration</h2>
+                <p class="text-xs text-slate-500">Configure organizational entities, physical branches, and payroll linkages.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="/admin/branches" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-brand-primary flex items-center justify-center font-bold text-base mb-3 group-hover:bg-brand-primary group-hover:text-white transition">
+                            🏢
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">Branches</h3>
+                        <p class="text-xs text-slate-500 mt-1">Add, update, or deactivate physical operating branches and location codes.</p>
+                    </div>
+                    <div class="text-xs font-bold text-brand-primary mt-4 flex items-center">
+                        Manage Branches &rarr;
+                    </div>
+                </a>
+
+                <a href="/admin/payroll-firms" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-brand-primary flex items-center justify-center font-bold text-base mb-3 group-hover:bg-brand-primary group-hover:text-white transition">
+                            📑
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">Payroll Firms</h3>
+                        <p class="text-xs text-slate-500 mt-1">Configure legal payroll processing entities and service providers.</p>
+                    </div>
+                    <div class="text-xs font-bold text-brand-primary mt-4 flex items-center">
+                        Manage Firms &rarr;
+                    </div>
+                </a>
+
+                <a href="/admin/branch-payroll" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-brand-primary flex items-center justify-center font-bold text-base mb-3 group-hover:bg-brand-primary group-hover:text-white transition">
+                            🔗
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">Branch-Payroll Matching</h3>
+                        <p class="text-xs text-slate-500 mt-1">Map approved payroll firms to specific branches with composite protection.</p>
+                    </div>
+                    <div class="text-xs font-bold text-brand-primary mt-4 flex items-center">
+                        Configure Mappings &rarr;
+                    </div>
+                </a>
+
+                <a href="/admin/user-branches" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 text-brand-primary flex items-center justify-center font-bold text-base mb-3 group-hover:bg-brand-primary group-hover:text-white transition">
+                            👥
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">User-Branch Scoping</h3>
+                        <p class="text-xs text-slate-500 mt-1">Assign supervisors to branches to govern request visibility and entry permissions.</p>
+                    </div>
+                    <div class="text-xs font-bold text-brand-primary mt-4 flex items-center">
+                        Assign Branches &rarr;
+                    </div>
+                </a>
+            </div>
+        </div>
+    </AuthorizeView>
+
+    <!-- Dynamic RBAC Section (Guarded by Claims) -->
+    <AuthorizeView Policy="@AppPermissions.CanManageRbac">
+        <div class="space-y-4">
+            <div>
+                <h2 class="text-lg font-bold text-slate-800">Dynamic RBAC &amp; Access Control</h2>
+                <p class="text-xs text-slate-500">Fine-grained permissions and role assignments resolved dynamically at login.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="/admin/roles" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-base mb-3 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            🛡️
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">Roles Directory</h3>
+                        <p class="text-xs text-slate-500 mt-1">Create and manage security roles for departments and operational tiers.</p>
+                    </div>
+                    <div class="text-xs font-bold text-brand-primary mt-4 flex items-center">
+                        Manage Roles &rarr;
+                    </div>
+                </a>
+
+                <a href="/admin/role-permissions" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-base mb-3 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            ⚙️
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">Permission Matrix</h3>
+                        <p class="text-xs text-slate-500 mt-1">Configure granular access claims per role without altering backend code.</p>
+                    </div>
+                    <div class="text-xs font-bold text-brand-primary mt-4 flex items-center">
+                        Open Matrix &rarr;
+                    </div>
+                </a>
+
+                <a href="/admin/user-roles" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-base mb-3 group-hover:bg-indigo-600 group-hover:text-white transition">
+                            👤
+                        </div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">User Roles</h3>
+                        <p class="text-xs text-slate-500 mt-1">Assign roles to user accounts to grant permissions instantly.</p>
+                    </div>
+                    <div class="text-xs font-bold text-brand-primary mt-4 flex items-center">
+                        Assign Roles &rarr;
+                    </div>
+                </a>
+            </div>
+        </div>
+    </AuthorizeView>
+
+    <!-- Onboarding Operations Section -->
+    <div class="space-y-4">
+        <div>
+            <h2 class="text-lg font-bold text-slate-800">Onboarding Operations</h2>
+            <p class="text-xs text-slate-500">Track candidate registration, identity locking, and approval workflows.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a href="/onboarding" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-6 shadow-sm hover:shadow transition flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 text-brand-primary flex items-center justify-center text-xl font-bold group-hover:bg-brand-primary group-hover:text-white transition flex-shrink-0">
+                    📋
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-800 text-base group-hover:text-brand-accent transition">Onboarding Requests List</h3>
+                    <p class="text-xs text-slate-500 mt-1">View scoped candidate records, filter by status, and review submissions.</p>
+                </div>
+            </a>
+
+            <AuthorizeView Policy="@AppPermissions.CanCreateOnboarding">
+                <a href="/onboarding/new" class="group bg-white border border-slate-200 hover:border-brand-accent rounded-xl p-6 shadow-sm hover:shadow transition flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl font-bold group-hover:bg-emerald-600 group-hover:text-white transition flex-shrink-0">
+                        ➕
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-slate-800 text-base group-hover:text-emerald-700 transition">Create Onboarding Request</h3>
+                        <p class="text-xs text-slate-500 mt-1">Register a new candidate with live Aadhaar/PAN deduplication and WebP compression.</p>
+                    </div>
+                </a>
+            </AuthorizeView>
+        </div>
+    </div>
+</div>

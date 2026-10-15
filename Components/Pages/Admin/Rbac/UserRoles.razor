@@ -1,0 +1,51 @@
+@page "/admin/user-roles"
+@attribute [Authorize(Policy = AppPermissions.CanManageRbac)]
+
+<div class="space-y-6">
+    <div>
+        <h1 class="text-2xl font-bold text-slate-800">User Role Assignments</h1>
+        <p class="text-slate-600 text-sm mt-1">Assign security roles to user accounts to grant permissions dynamically.</p>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left">
+                <thead class="bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <tr>
+                        <th class="px-6 py-3">Full Name</th>
+                        <th class="px-6 py-3">Username</th>
+                        <th class="px-6 py-3">Email</th>
+                        <th class="px-6 py-3">Assigned Roles</th>
+                        <th class="px-6 py-3 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm">
+                    @foreach (var user in users)
+                    {
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="px-6 py-4 font-semibold text-slate-800">@user.FullName</td>
+                            <td class="px-6 py-4 font-mono text-xs text-slate-600">@user.UserName</td>
+                            <td class="px-6 py-4 text-slate-500">@user.Email</td>
+                            <td class="px-6 py-4">
+                                <div class="flex flex-wrap gap-1">
+                                    @foreach (var r in user.Roles)
+                                    {
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-blue-50 text-brand-primary border border-blue-200">
+                                            @r
+                                        </span>
+                                    }
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <a href="@($"/admin/user-roles/edit/{user.Id}")"
+                                   class="px-3 py-1.5 text-xs font-medium text-brand-primary hover:bg-slate-100 rounded-md transition">
+                                    Edit Roles
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

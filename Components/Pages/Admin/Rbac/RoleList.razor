@@ -1,0 +1,51 @@
+@page "/admin/roles"
+@attribute [Authorize(Policy = AppPermissions.CanManageRbac)]
+
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Application Roles</h1>
+            <p class="text-slate-600 text-sm mt-1">Manage security roles and organizational job groups.</p>
+        </div>
+        <a href="/admin/roles/new"
+           class="inline-flex items-center px-4 py-2.5 bg-brand-primary hover:bg-brand-accent text-white font-medium rounded-lg shadow-sm transition">
+            + Create New Role
+        </a>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left">
+                <thead class="bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <tr>
+                        <th class="px-6 py-3">Role Name</th>
+                        <th class="px-6 py-3">Role ID</th>
+                        <th class="px-6 py-3 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm">
+                    @foreach (var r in roles)
+                    {
+                        <tr class="hover:bg-slate-50/70 transition">
+                            <td class="px-6 py-4 font-semibold text-slate-800">@r.Name</td>
+                            <td class="px-6 py-4 font-mono text-xs text-slate-500">@r.Id</td>
+                            <td class="px-6 py-4 text-right space-x-2">
+                                <a href="/admin/role-permissions" class="px-3 py-1.5 text-xs font-medium text-brand-primary hover:bg-slate-100 rounded-md transition">
+                                    Configure Permissions
+                                </a>
+                                @if (r.Name != "SystemAdmin")
+                                {
+                                    <button type="button"
+                                            @onclick="() => DeleteRoleAsync(r.Id)"
+                                            class="px-3 py-1.5 text-xs font-medium text-rose-700 hover:bg-rose-50 rounded-md transition">
+                                        Delete
+                                    </button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

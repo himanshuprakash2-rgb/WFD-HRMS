@@ -1,0 +1,151 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\WFD HRMS\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|d:\\wfd hrms\\services\\statemachine\\onboardingworkflowengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|solutionrelative:services\\statemachine\\onboardingworkflowengine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|d:\\wfd hrms\\services\\identity\\apppermissions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|solutionrelative:services\\identity\\apppermissions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|d:\\wfd hrms\\services\\identity\\customclaimsprincipalfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|solutionrelative:services\\identity\\customclaimsprincipalfactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|d:\\wfd hrms\\services\\rbacservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|solutionrelative:services\\rbacservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|d:\\wfd hrms\\services\\notificationeventbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|solutionrelative:services\\notificationeventbus.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|d:\\wfd hrms\\components\\pages\\onboarding\\onboardingedit.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|solutionrelative:components\\pages\\onboarding\\onboardingedit.razor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|d:\\wfd hrms\\components\\pages\\onboarding\\onboardingedit.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C9455F4B-0558-BB9B-C715-8039CCAA6BFE}|WfdHrms.csproj|solutionrelative:components\\pages\\onboarding\\onboardingedit.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "OnboardingWorkflowEngine.cs",
+              "DocumentMoniker": "D:\\WFD HRMS\\Services\\StateMachine\\OnboardingWorkflowEngine.cs",
+              "RelativeDocumentMoniker": "Services\\StateMachine\\OnboardingWorkflowEngine.cs",
+              "ToolTip": "D:\\WFD HRMS\\Services\\StateMachine\\OnboardingWorkflowEngine.cs",
+              "RelativeToolTip": "Services\\StateMachine\\OnboardingWorkflowEngine.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAA7wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T06:05:43.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CustomClaimsPrincipalFactory.cs",
+              "DocumentMoniker": "D:\\WFD HRMS\\Services\\Identity\\CustomClaimsPrincipalFactory.cs",
+              "RelativeDocumentMoniker": "Services\\Identity\\CustomClaimsPrincipalFactory.cs",
+              "ToolTip": "D:\\WFD HRMS\\Services\\Identity\\CustomClaimsPrincipalFactory.cs",
+              "RelativeToolTip": "Services\\Identity\\CustomClaimsPrincipalFactory.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAA9wAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T06:05:04.583Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppPermissions.cs",
+              "DocumentMoniker": "D:\\WFD HRMS\\Services\\Identity\\AppPermissions.cs",
+              "RelativeDocumentMoniker": "Services\\Identity\\AppPermissions.cs",
+              "ToolTip": "D:\\WFD HRMS\\Services\\Identity\\AppPermissions.cs",
+              "RelativeToolTip": "Services\\Identity\\AppPermissions.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T06:05:01.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RbacService.cs",
+              "DocumentMoniker": "D:\\WFD HRMS\\Services\\RbacService.cs",
+              "RelativeDocumentMoniker": "Services\\RbacService.cs",
+              "ToolTip": "D:\\WFD HRMS\\Services\\RbacService.cs",
+              "RelativeToolTip": "Services\\RbacService.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAAwDIAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T06:04:38.141Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "NotificationEventBus.cs",
+              "DocumentMoniker": "D:\\WFD HRMS\\Services\\NotificationEventBus.cs",
+              "RelativeDocumentMoniker": "Services\\NotificationEventBus.cs",
+              "ToolTip": "D:\\WFD HRMS\\Services\\NotificationEventBus.cs",
+              "RelativeToolTip": "Services\\NotificationEventBus.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T05:41:03.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "OnboardingEdit.razor.cs",
+              "DocumentMoniker": "D:\\WFD HRMS\\Components\\Pages\\Onboarding\\OnboardingEdit.razor.cs",
+              "RelativeDocumentMoniker": "Components\\Pages\\Onboarding\\OnboardingEdit.razor.cs",
+              "ToolTip": "D:\\WFD HRMS\\Components\\Pages\\Onboarding\\OnboardingEdit.razor.cs",
+              "RelativeToolTip": "Components\\Pages\\Onboarding\\OnboardingEdit.razor.cs",
+              "ViewState": "AgIAAKEAAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-15T05:40:42.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OnboardingEdit.razor",
+              "DocumentMoniker": "D:\\WFD HRMS\\Components\\Pages\\Onboarding\\OnboardingEdit.razor",
+              "RelativeDocumentMoniker": "Components\\Pages\\Onboarding\\OnboardingEdit.razor",
+              "ToolTip": "D:\\WFD HRMS\\Components\\Pages\\Onboarding\\OnboardingEdit.razor",
+              "RelativeToolTip": "Components\\Pages\\Onboarding\\OnboardingEdit.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-10-15T05:40:05.948Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

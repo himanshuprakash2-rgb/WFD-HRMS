@@ -1,0 +1,45 @@
+wwwroot\lib\jquery\LICENSE.txt
+wwwroot\lib\jquery\dist\jquery.slim.min.map
+wwwroot\lib\jquery\dist\jquery.slim.js
+wwwroot\lib\jquery\dist\jquery.min.map
+wwwroot\lib\jquery\dist\jquery.min.js
+wwwroot\lib\jquery\dist\jquery.js
+wwwroot\lib\jquery-validation\LICENSE.md
+wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+wwwroot\lib\jquery-validation\dist\jquery.validate.js
+wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+wwwroot\lib\jquery-validation\dist\additional-methods.js
+wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+wwwroot\js\site.js
+wwwroot\js\imageCompressor.js
+wwwroot\favicon.ico
+wwwroot\css\site.css
+wwwroot\lib\jquery\dist\jquery.slim.min.js
+wwwroot\uploads\aadhaar_card\aadhaar_card_a76483062e054bbca72cb82c7cd6ad3d.jpg
+wwwroot\uploads\pan_card\pan_card_7dced18e027a45b2bd3a1999d720dc68.jpeg
+wwwroot\uploads\bank_passbook\bank_passbook_3ffd21d3861f478496d1ed9a8d94047e.jpeg
+C:\Users\Lenovo\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.11\build\..\_framework\blazor.web.js
+C:\Users\Lenovo\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.11\build\..\_framework\blazor.server.js
+D:\WFD HRMS\wwwroot\favicon.ico
+D:\WFD HRMS\wwwroot\js\site.js
+D:\WFD HRMS\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
+D:\WFD HRMS\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.min.js
+D:\WFD HRMS\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+D:\WFD HRMS\wwwroot\lib\jquery-validation\dist\additional-methods.js
+D:\WFD HRMS\wwwroot\lib\jquery-validation\dist\additional-methods.min.js
+D:\WFD HRMS\wwwroot\lib\jquery-validation\dist\jquery.validate.js
+D:\WFD HRMS\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js
+D:\WFD HRMS\wwwroot\lib\jquery-validation\LICENSE.md
+D:\WFD HRMS\wwwroot\lib\jquery\dist\jquery.js
+D:\WFD HRMS\wwwroot\lib\jquery\dist\jquery.min.js
+D:\WFD HRMS\wwwroot\lib\jquery\dist\jquery.min.map
+D:\WFD HRMS\wwwroot\lib\jquery\dist\jquery.slim.js
+D:\WFD HRMS\wwwroot\lib\jquery\dist\jquery.slim.min.js
+D:\WFD HRMS\wwwroot\lib\jquery\dist\jquery.slim.min.map
+D:\WFD HRMS\wwwroot\lib\jquery\LICENSE.txt
+D:\WFD HRMS\wwwroot\css\site.css
+D:\WFD HRMS\wwwroot\js\imageCompressor.js
+C:\Users\Lenovo\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.11\_framework\blazor.web.js
+C:\Users\Lenovo\.nuget\packages\microsoft.aspnetcore.app.internal.assets\10.0.11\_framework\blazor.server.js

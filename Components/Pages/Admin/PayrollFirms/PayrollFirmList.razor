@@ -1,0 +1,68 @@
+@page "/admin/payroll-firms"
+@attribute [Authorize(Policy = AppPermissions.CanManageMasterData)]
+
+<div class="space-y-6">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Payroll Firms Management</h1>
+            <p class="text-slate-600 text-sm mt-1">Configure and manage corporate payroll processing entities.</p>
+        </div>
+        <a href="/admin/payroll-firms/new"
+           class="inline-flex items-center px-4 py-2.5 bg-brand-primary hover:bg-brand-accent text-white font-medium rounded-lg shadow-sm transition">
+            + Add New Payroll Firm
+        </a>
+    </div>
+
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left">
+                <thead class="bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <tr>
+                        <th class="px-6 py-3">Code</th>
+                        <th class="px-6 py-3">Firm Name</th>
+                        <th class="px-6 py-3">Status</th>
+                        <th class="px-6 py-3">Created Date</th>
+                        <th class="px-6 py-3 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm">
+                    @if (payrollFirms.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="5" class="px-6 py-8 text-center text-slate-400">
+                                No payroll firms found.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var p in payrollFirms)
+                        {
+                            <tr class="hover:bg-slate-50/70 transition">
+                                <td class="px-6 py-4 font-mono font-bold text-brand-primary">@p.Code</td>
+                                <td class="px-6 py-4 font-medium text-slate-800">@p.Name</td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold @(p.IsActive ? "bg-emerald-50 text-emerald-700 border border-emerald-200" : "bg-slate-100 text-slate-600 border border-slate-300")">
+                                        @(p.IsActive ? "Active" : "Inactive")
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-slate-500">@p.CreatedAt.ToLocalTime().ToString("dd MMM yyyy")</td>
+                                <td class="px-6 py-4 text-right space-x-2">
+                                    <a href="@($"/admin/payroll-firms/edit/{p.Id}")"
+                                       class="px-3 py-1.5 text-xs font-medium text-brand-primary hover:bg-slate-100 rounded-md transition">
+                                        Edit
+                                    </a>
+                                    <button type="button"
+                                            @onclick="() => ToggleActiveAsync(p.Id)"
+                                            class="px-3 py-1.5 text-xs font-medium @(p.IsActive ? "text-amber-700 hover:bg-amber-50" : "text-emerald-700 hover:bg-emerald-50") rounded-md transition">
+                                        @(p.IsActive ? "Deactivate" : "Activate")
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

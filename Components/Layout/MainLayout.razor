@@ -1,0 +1,28 @@
+@inherits LayoutComponentBase
+
+<AuthorizeView>
+    <Authorized>
+        <div class="min-h-screen flex flex-col bg-slate-50 text-slate-800">
+            <ToastContainer />
+            <header class="sticky top-0 z-40 bg-white">
+                <NavMenu />
+            </header>
+
+            <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                @Body
+            </main>
+
+            <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-slate-500">
+                    &copy; @DateTime.UtcNow.Year SWIFT HRMS &bull; Security Workers Information &amp; Finance Tool
+                </div>
+            </footer>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <ToastContainer />
+        <main class="min-h-screen w-full">
+            @Body
+        </main>
+    </NotAuthorized>
+</AuthorizeView>

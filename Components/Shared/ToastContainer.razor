@@ -1,0 +1,164 @@
+@implements IDisposable
+@inject IToastService ToastService
+
+<div class="fixed top-20 right-5 z-[100] flex w-[380px] max-w-[calc(100vw-2rem)] flex-col gap-3 pointer-events-none"
+     aria-live="polite"
+     aria-atomic="true">
+
+    @foreach (var toast in ToastService.GetActiveToasts())
+    {
+        var styles = GetToastStyles(toast.Type);
+
+        <div class="pointer-events-auto relative overflow-hidden rounded-xl border bg-white shadow-[0_10px_35px_rgba(15,23,42,0.12)] ring-1 ring-black/[0.02] transition-all duration-300 ease-out"
+             role="alert">
+
+            <!-- Colored accent -->
+            <div class="absolute inset-y-0 left-0 w-1 @styles.Accent"></div>
+
+            <div class="flex gap-3.5 p-4 pl-5">
+
+                <!-- Icon -->
+                <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg @styles.IconBackground @styles.IconColor">
+                    @if (toast.Type == ToastType.Success)
+                    {
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                        </svg>
+                    }
+                    else if (toast.Type == ToastType.Error)
+                    {
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    }
+                    else if (toast.Type == ToastType.Warning)
+                    {
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.3 3.8l-7.6 13.2A2 2 0 004.4 20h15.2a2 2 0 001.7-3L13.7 3.8a2 2 0 00-3.4 0z" />
+                        </svg>
+                    }
+                    else
+                    {
+                        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                            <circle cx="12" cy="12" r="9" />
+                            <path stroke-linecap="round" d="M12 10v6m0-9h.01" />
+                        </svg>
+                    }
+                </div>
+
+                <!-- Content -->
+                <div class="min-w-0 flex-1 pt-0.5">
+
+                    @if (!string.IsNullOrWhiteSpace(toast.Title))
+                    {
+                        <div class="mb-1 flex items-center gap-2">
+                            <h4 class="truncate text-sm font-semibold text-slate-900">
+                                @toast.Title
+                            </h4>
+
+                            <span class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide @styles.Badge">
+                                @styles.Label
+                            </span>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="mb-1">
+                            <span class="text-[10px] font-semibold uppercase tracking-[0.12em] @styles.LabelText">
+                                @styles.Label
+                            </span>
+                        </div>
+                    }
+
+                    <p class="pr-2 text-sm leading-5 text-slate-600 break-words">
+                        @toast.Message
+                    </p>
+                </div>
+
+                <!-- Close -->
+                <button type="button"
+                        @onclick="() => ToastService.Dismiss(toast.Id)"
+                        class="group -mr-1 -mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-300"
+                        title="Dismiss notification"
+                        aria-label="Dismiss">
+
+                    <svg class="h-4 w-4 transition-transform duration-150 group-hover:scale-110"
+                         viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 6l12 12M18 6L6 18" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        ToastService.OnChanged += HandleToastChanged;
+    }
+
+    private void HandleToastChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    private static ToastStyles GetToastStyles(ToastType type)
+    {
+        return type switch
+        {
+            ToastType.Success => new ToastStyles(
+                "bg-emerald-500",
+                "bg-emerald-50",
+                "text-emerald-600",
+                "bg-emerald-50 text-emerald-700",
+                "text-emerald-600",
+                "Success"
+            ),
+
+            ToastType.Error => new ToastStyles(
+                "bg-rose-500",
+                "bg-rose-50",
+                "text-rose-600",
+                "bg-rose-50 text-rose-700",
+                "text-rose-600",
+                "Error"
+            ),
+
+            ToastType.Warning => new ToastStyles(
+                "bg-amber-500",
+                "bg-amber-50",
+                "text-amber-600",
+                "bg-amber-50 text-amber-700",
+                "text-amber-600",
+                "Warning"
+            ),
+
+            _ => new ToastStyles(
+                "bg-blue-500",
+                "bg-blue-50",
+                "text-blue-600",
+                "bg-blue-50 text-blue-700",
+                "text-blue-600",
+                "Notice"
+            )
+        };
+    }
+
+    private sealed record ToastStyles(
+        string Accent,
+        string IconBackground,
+        string IconColor,
+        string Badge,
+        string LabelText,
+        string Label
+    );
+
+    public void Dispose()
+    {
+        ToastService.OnChanged -= HandleToastChanged;
+    }
+}

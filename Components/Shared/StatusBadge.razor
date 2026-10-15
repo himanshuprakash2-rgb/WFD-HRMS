@@ -1,0 +1,27 @@
+<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold @BadgeClass">
+    @DisplayLabel
+</span>
+
+@code {
+    [Parameter] public string Status { get; set; } = string.Empty;
+
+    private string DisplayLabel => Status switch
+    {
+        OnboardingStatus.Draft => "Draft",
+        OnboardingStatus.SentForApproval => "Sent for Approval",
+        OnboardingStatus.RevisionRequired => "Revision Required",
+        OnboardingStatus.Approved => "Approved",
+        OnboardingStatus.Rejected => "Rejected",
+        _ => Status
+    };
+
+    private string BadgeClass => Status switch
+    {
+        OnboardingStatus.Draft => "bg-slate-100 text-slate-700 border border-slate-300",
+        OnboardingStatus.SentForApproval => "bg-amber-50 text-amber-800 border border-amber-200",
+        OnboardingStatus.RevisionRequired => "bg-orange-50 text-orange-800 border border-orange-200",
+        OnboardingStatus.Approved => "bg-emerald-50 text-emerald-800 border border-emerald-200",
+        OnboardingStatus.Rejected => "bg-rose-50 text-rose-800 border border-rose-200",
+        _ => "bg-gray-100 text-gray-700 border border-gray-300"
+    };
+}

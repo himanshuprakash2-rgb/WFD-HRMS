@@ -1,0 +1,166 @@
+@page "/onboarding"
+@attribute [Authorize]
+
+<div class="space-y-6">
+    <!-- Header Section -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <h1 class="text-2xl font-bold text-slate-800">Employee Onboarding Requests</h1>
+            <p class="text-slate-600 text-sm mt-1">
+                Manage and track candidate onboarding workflows across regional branches.
+            </p>
+        </div>
+
+        <AuthorizeView Policy="@AppPermissions.CanCreateOnboarding">
+            <a href="/onboarding/new"
+               class="inline-flex items-center px-5 py-2.5 bg-brand-primary hover:bg-brand-accent text-white font-medium rounded-lg shadow-sm transition">
+                + New Onboarding Request
+            </a>
+        </AuthorizeView>
+    </div>
+
+    <!-- Filter Tabs & Search Bar -->
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 space-y-4">
+        <div class="flex flex-wrap items-center gap-2 border-b border-slate-100 pb-3">
+            @foreach (var tab in statusTabs)
+            {
+                var isActive = (filter.Status ?? "ALL") == tab.Key;
+                <button type="button"
+                        @onclick="() => FilterByStatus(tab.Key)"
+                        class="px-4 py-2 rounded-lg text-xs font-semibold transition @(isActive ? "bg-brand-primary text-white shadow-sm" : "bg-slate-100 text-slate-600 hover:bg-slate-200")">
+                    @tab.Value
+                </button>
+            }
+        </div>
+
+        <div class="flex flex-col md:flex-row items-center gap-3">
+            <div class="relative flex-1 w-full">
+                <input type="text"
+                       @bind="filter.SearchTerm"
+                       @bind:event="oninput"
+                       @bind:after="ApplyFilterAsync"
+                       placeholder="Search by candidate name, Aadhaar, PAN, or mobile number..."
+                       class="w-full pl-10 pr-4 py-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-brand-accent focus:outline-none text-slate-800" />
+                <svg class="w-5 h-5 text-slate-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+
+            @if (branches.Count > 1)
+            {
+                <select @bind="filter.BranchId" @bind:after="ApplyFilterAsync"
+                        class="px-3 py-2.5 border border-slate-300 rounded-lg text-sm text-slate-700 focus:ring-2 focus:ring-brand-accent focus:outline-none w-full md:w-56">
+                    <option value="">All Branches</option>
+                    @foreach (var b in branches)
+                    {
+                        <option value="@b.Id">@b.Name</option>
+                    }
+                </select>
+            }
+        </div>
+    </div>
+
+    <!-- Requests Table -->
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-slate-200 text-left">
+                <thead class="bg-slate-50 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                    <tr>
+                        <th class="px-6 py-3.5">Candidate Details</th>
+                        <th class="px-6 py-3.5">Branch &amp; Payroll</th>
+                        <th class="px-6 py-3.5">Identity (Aadhaar / PAN)</th>
+                        <th class="px-6 py-3.5">Status</th>
+                        <th class="px-6 py-3.5">Submitted By</th>
+                        <th class="px-6 py-3.5 text-right">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100 text-sm">
+                    @if (isLoading)
+                    {
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                                Loading onboarding requests...
+                            </td>
+                        </tr>
+                    }
+                    else if (requests.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="6" class="px-6 py-12 text-center text-slate-400">
+                                No onboarding requests match the selected criteria.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var req in requests)
+                        {
+                            <tr class="hover:bg-slate-50/70 transition">
+                                <td class="px-6 py-4">
+                                    <div class="font-bold text-slate-900">@req.FullName</div>
+                                    <div class="text-xs text-slate-500">@req.Designation &bull; @req.MobileNumber</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="font-medium text-slate-800">@req.BranchName</div>
+                                    <div class="text-xs text-brand-accent font-semibold">@req.PayrollFirmName</div>
+                                </td>
+                                <td class="px-6 py-4 font-mono text-xs text-slate-600">
+                                    <div>UID: @req.AadhaarNumber</div>
+                                    <div>PAN: @req.PanNumber</div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <StatusBadge Status="@req.Status" />
+                                    @if (!string.IsNullOrEmpty(req.ReviewerRemarks))
+                                    {
+                                        <p class="text-[11px] text-slate-500 italic mt-1 max-w-xs truncate" title="@req.ReviewerRemarks">
+                                            Note: @req.ReviewerRemarks
+                                        </p>
+                                    }
+                                </td>
+                                <td class="px-6 py-4 text-xs text-slate-500">
+                                    <div>@req.CreatedByUserName</div>
+                                    <div class="text-[10px] text-slate-400">@req.Id.ToString().Substring(0, 8)...</div>
+                                </td>
+                                <td class="px-6 py-4 text-right space-x-2">
+                                    @if (req.Status == OnboardingStatus.Draft || req.Status == OnboardingStatus.RevisionRequired)
+                                    {
+                                        <a href="/onboarding/edit/@req.Id"
+                                           class="inline-block px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-brand-primary text-xs font-semibold rounded-md transition">
+                                            Edit Request
+                                        </a>
+                                    }
+
+                                    <AuthorizeView Policy="@AppPermissions.CanApproveOnboarding">
+                                        <a href="/onboarding/review/@req.Id"
+                                           class="inline-block px-3 py-1.5 bg-brand-primary hover:bg-brand-accent text-white text-xs font-semibold rounded-md transition shadow-sm">
+                                            Review
+                                        </a>
+                                    </AuthorizeView>
+
+                                    <AuthorizeView Policy="@AppPermissions.CanDeleteUnapprovedRequest">
+                                        @if (req.Status != OnboardingStatus.Approved)
+                                        {
+                                            <button type="button"
+                                                    @onclick="() => PromptDelete(req)"
+                                                    class="px-2.5 py-1.5 text-rose-600 hover:bg-rose-50 text-xs font-medium rounded-md transition">
+                                                Delete
+                                            </button>
+                                        }
+                                    </AuthorizeView>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ConfirmDialog IsOpen="@showDeleteConfirm"
+               Title="Delete Onboarding Request"
+               Message="@($"Are you sure you want to permanently delete the onboarding request for {requestToDelete?.FullName}? This action is irreversible.")"
+               ConfirmButtonText="Delete Permanently"
+               ConfirmButtonClass="bg-rose-600 hover:bg-rose-700"
+               OnConfirmed="ConfirmDeleteAsync"
+               OnCancelled="() => showDeleteConfirm = false" />

@@ -1,0 +1,81 @@
+@page "/admin/branches/new"
+@page "/admin/branches/edit/{Id:int}"
+@attribute [Authorize(Policy = AppPermissions.CanManageMasterData)]
+
+<div class="max-w-2xl mx-auto space-y-6">
+    <!-- Breadcrumb & Header -->
+    <div>
+        <div class="mb-2">
+            <a href="/admin/branches" class="inline-flex items-center text-xs font-semibold text-brand-primary hover:underline">
+                &larr; Back to Branches
+            </a>
+        </div>
+        <h1 class="text-2xl font-bold text-slate-800">
+            @(Id == null || Id == 0 ? "Add New Branch" : "Edit Branch")
+        </h1>
+        <p class="text-slate-600 text-sm mt-0.5">
+            Configure branch location details, code identifier, and active operational status.
+        </p>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="p-8 text-center text-slate-400 bg-white border border-slate-200 rounded-xl shadow-sm">
+            Loading branch details...
+        </div>
+    }
+    else
+    {
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 space-y-6">
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">
+                        Branch Name <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text"
+                           @bind="branch.Name"
+                           placeholder="e.g. Mumbai Head Office"
+                           class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:outline-none text-slate-800 text-sm" />
+                    <p class="text-xs text-slate-400 mt-1">Full descriptive name of this operational branch.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">
+                        Branch Code <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text"
+                           @bind="branch.Code"
+                           placeholder="e.g. MUM"
+                           class="w-full px-4 py-2.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-accent focus:outline-none uppercase font-mono text-slate-800 text-sm" />
+                    <p class="text-xs text-slate-400 mt-1">Unique short code used in employee code generation and reporting.</p>
+                </div>
+
+                <div class="pt-2">
+                    <label class="flex items-center p-3 rounded-lg border border-slate-200 hover:bg-slate-50 cursor-pointer transition">
+                        <input type="checkbox"
+                               id="branchActiveCheck"
+                               @bind="branch.IsActive"
+                               class="w-4 h-4 text-brand-primary rounded border-slate-300 focus:ring-brand-accent" />
+                        <div class="ml-3">
+                            <span class="text-sm font-semibold text-slate-800">Active Operational Branch</span>
+                            <p class="text-xs text-slate-500">Allow supervisors to onboard candidates and deploy workforce at this location.</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end space-x-3 pt-4 border-t border-slate-100">
+                <a href="/admin/branches"
+                   class="px-5 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-lg text-sm font-medium transition">
+                    Cancel
+                </a>
+                <button type="button"
+                        @onclick="SaveBranchAsync"
+                        disabled="@isSaving"
+                        class="px-5 py-2.5 bg-brand-primary hover:bg-brand-accent text-white rounded-lg text-sm font-medium transition shadow-sm disabled:opacity-50">
+                    @(isSaving ? "Saving Branch..." : (Id == null || Id == 0 ? "Save Branch" : "Update Branch"))
+                </button>
+            </div>
+        </div>
+    }
+</div>

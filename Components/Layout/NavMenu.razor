@@ -1,0 +1,147 @@
+@inherits ComponentBase
+@implements IDisposable
+
+<nav class="bg-white border-b border-brand-border shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+            <!-- Brand Logo & Title -->
+            <div class="flex items-center space-x-6">
+                <a href="/dashboard" class="flex items-center space-x-2 text-brand-primary font-bold text-xl tracking-tight">
+                    <span class="w-8 h-8 rounded-lg bg-brand-primary text-white flex items-center justify-center text-sm font-black shadow-sm">S</span>
+                    <span>SWIFT HRMS</span>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <NavLink href="/dashboard" Match="NavLinkMatch.All" class="px-3.5 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-brand-accent hover:bg-slate-50 transition">
+                        Dashboard
+                    </NavLink>
+
+                    <NavLink href="/onboarding" class="px-3.5 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-brand-accent hover:bg-slate-50 transition">
+                        Onboarding Requests
+                    </NavLink>
+
+                    <AuthorizeView Policy="@AppPermissions.CanCreateOnboarding">
+                        <NavLink href="/onboarding/new" class="px-3.5 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-brand-accent hover:bg-slate-50 transition">
+                            + New Request
+                        </NavLink>
+                    </AuthorizeView>
+
+                    <AuthorizeView Policy="@AppPermissions.CanManageMasterData">
+                        <div class="relative group">
+                            <button type="button" class="px-3.5 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-brand-accent hover:bg-slate-50 inline-flex items-center transition">
+                                <span>Master Data</span>
+                                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="absolute left-0 mt-1 w-52 bg-white rounded-lg shadow-lg border border-slate-200 py-1.5 hidden group-hover:block z-50">
+                                <a href="/admin/branches" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-accent">Branches</a>
+                                <a href="/admin/payroll-firms" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-accent">Payroll Firms</a>
+                                <a href="/admin/branch-payroll" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-accent">Branch-Payroll Matching</a>
+                                <a href="/admin/user-branches" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-accent">User-Branch Assignments</a>
+                            </div>
+                        </div>
+                    </AuthorizeView>
+
+                    <AuthorizeView Policy="@AppPermissions.CanManageRbac">
+                        <div class="relative group">
+                            <button type="button" class="px-3.5 py-2 rounded-md text-sm font-medium text-slate-700 hover:text-brand-accent hover:bg-slate-50 inline-flex items-center transition">
+                                <span>Dynamic RBAC</span>
+                                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div class="absolute left-0 mt-1 w-52 bg-white rounded-lg shadow-lg border border-slate-200 py-1.5 hidden group-hover:block z-50">
+                                <a href="/admin/roles" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-accent">Roles Management</a>
+                                <a href="/admin/role-permissions" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-accent">Role-Permission Matrix</a>
+                                <a href="/admin/user-roles" class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-brand-accent">User-Role Assignments</a>
+                            </div>
+                        </div>
+                    </AuthorizeView>
+                </div>
+            </div>
+
+            <!-- Right Controls: Notification Bell & User Profile -->
+            <div class="flex items-center space-x-4">
+                <!-- Notification Bell -->
+                <div class="relative">
+                    <button type="button"
+                            @onclick="ToggleNotifications"
+                            class="relative p-2 text-slate-600 hover:text-brand-accent hover:bg-slate-50 rounded-lg transition"
+                            title="Notifications">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                        </svg>
+                        @if (unreadCount > 0)
+                        {
+                            <span class="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-rose-600 rounded-full animate-pulse">
+                                @(unreadCount > 9 ? "9+" : unreadCount.ToString())
+                            </span>
+                        }
+                    </button>
+
+                    <!-- Notifications Dropdown Drawer -->
+                    @if (showNotificationPanel)
+                    {
+                        <div class="absolute right-0 mt-2 w-80 md:w-96 bg-white rounded-xl shadow-xl border border-slate-200 py-2 z-50">
+                            <div class="px-4 py-2 border-b border-slate-100 flex items-center justify-between">
+                                <span class="font-bold text-slate-800 text-sm">In-App Notifications</span>
+                                <span class="text-xs text-slate-500 font-medium">@unreadCount unread</span>
+                            </div>
+                            <div class="max-h-80 overflow-y-auto divide-y divide-slate-100">
+                                @if (notifications.Count == 0)
+                                {
+                                    <div class="px-4 py-6 text-center text-slate-400 text-sm">
+                                        No recent notifications.
+                                    </div>
+                                }
+                                else
+                                {
+                                    @foreach (var note in notifications)
+                                    {
+                                        <div class="px-4 py-3 hover:bg-slate-50 transition @(!note.IsRead ? "bg-blue-50/40" : "")">
+                                            <div class="flex items-start justify-between">
+                                                <p class="text-xs font-semibold text-slate-800">@note.Title</p>
+                                                <span class="text-[10px] text-slate-400">@note.CreatedAt.ToLocalTime().ToString("g")</span>
+                                            </div>
+                                            <p class="text-xs text-slate-600 mt-1">@note.Message</p>
+                                            @if (!note.IsRead)
+                                            {
+                                                <button type="button"
+                                                        @onclick="() => MarkAsReadAsync(note.Id)"
+                                                        class="text-[11px] text-brand-accent hover:underline mt-1 inline-block font-medium">
+                                                    Mark as read
+                                                </button>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- User Profile & Sign Out Form -->
+                <AuthorizeView>
+                    <Authorized>
+                        <div class="flex items-center space-x-3">
+                            <div class="text-right hidden sm:block">
+                                <div class="text-sm font-semibold text-slate-800">
+                                    @(context.User.FindFirst("FullName")?.Value ?? context.User.Identity?.Name)
+                                </div>
+                                <div class="text-xs text-slate-500">
+                                    @string.Join(", ", context.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value))
+                                </div>
+                            </div>
+
+                            <form method="post" action="/Account/Logout" class="inline">
+                                <button type="submit"
+                                        class="px-3.5 py-2 text-xs font-semibold text-rose-700 hover:bg-rose-50 border border-rose-200 rounded-lg transition"
+                                        title="Sign out of your session">
+                                    Sign Out
+                                </button>
+                            </form>
+                        </div>
+                    </Authorized>
+                </AuthorizeView>
+            </div>
+        </div>
+    </div>
+</nav>

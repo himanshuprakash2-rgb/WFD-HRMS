@@ -1,0 +1,236 @@
+@page "/onboarding/review/{Id:guid}"
+@attribute [Authorize(Policy = AppPermissions.CanApproveOnboarding)]
+
+<div class="max-w-5xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <div class="text-xs font-semibold text-brand-primary mb-1">
+                <a href="/onboarding" class="hover:underline">&larr; Back to Onboarding List</a>
+            </div>
+            <h1 class="text-2xl font-bold text-slate-800">
+                Review Candidate Onboarding
+            </h1>
+            <p class="text-slate-600 text-sm mt-0.5 font-mono">
+                Request ID: @model.Id
+            </p>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <StatusBadge Status="@model.Status" />
+
+            <AuthorizeView Policy="@AppPermissions.CanDeleteUnapprovedRequest">
+                @if (model.Status != OnboardingStatus.Approved)
+                {
+                    <button type="button"
+                            @onclick="() => showDeleteConfirm = true"
+                            class="px-3.5 py-2 text-rose-600 hover:bg-rose-50 border border-rose-200 rounded-lg text-xs font-semibold transition">
+                        Delete Request
+                    </button>
+                }
+            </AuthorizeView>
+        </div>
+    </div>
+
+    <!-- Candidate Overview Card -->
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+            <div>
+                <h2 class="text-lg font-bold text-slate-900">@model.FullName</h2>
+                <p class="text-xs text-slate-500">@model.Designation &bull; Mobile: @model.MobileNumber</p>
+            </div>
+            <div class="text-right">
+                <div class="text-xs text-slate-400">Created by</div>
+                <div class="text-sm font-semibold text-slate-700">@model.CreatedByUserName</div>
+            </div>
+        </div>
+
+        <!-- Branch & Payroll Section with Workforce Override -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-slate-50 p-4 rounded-lg border border-slate-200">
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Branch Location</label>
+                <div class="text-base font-semibold text-slate-800">@model.BranchName</div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Payroll Processing Firm</label>
+                <AuthorizeView Policy="@AppPermissions.CanOverridePayroll">
+                    <Authorized>
+                        <div class="flex items-center space-x-2">
+                            <select @bind="selectedPayrollFirmId"
+                                    disabled="@(model.Status == OnboardingStatus.Approved || model.Status == OnboardingStatus.Rejected)"
+                                    class="w-full px-3 py-1.5 border border-slate-300 rounded-lg text-sm text-slate-800 focus:ring-2 focus:ring-brand-accent focus:outline-none">
+                                @foreach (var p in mappedPayrollFirms)
+                                {
+                                    <option value="@p.Id">@p.Name (@p.Code)</option>
+                                }
+                            </select>
+                            @if (model.Status != OnboardingStatus.Approved && model.Status != OnboardingStatus.Rejected)
+                            {
+                                <button type="button"
+                                        @onclick="OverridePayrollAsync"
+                                        class="px-3 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 rounded-lg text-xs font-semibold transition flex-shrink-0">
+                                    Override
+                                </button>
+                            }
+                        </div>
+                    </Authorized>
+                    <NotAuthorized>
+                        <div class="text-base font-semibold text-brand-primary">@model.PayrollFirmName</div>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </div>
+        </div>
+
+        <!-- Credentials & Bank Details Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div>
+                <span class="text-xs text-slate-400 block">Date of Birth</span>
+                <span class="font-medium text-slate-800">@model.DateOfBirth?.ToString("dd MMM yyyy")</span>
+            </div>
+            <div>
+                <span class="text-xs text-slate-400 block">Aadhaar Number</span>
+                <span class="font-mono font-bold text-slate-800">@model.AadhaarNumber</span>
+            </div>
+            <div>
+                <span class="text-xs text-slate-400 block">PAN Number</span>
+                <span class="font-mono font-bold text-slate-800">@model.PanNumber</span>
+            </div>
+            <div>
+                <span class="text-xs text-slate-400 block">Bank Account &amp; IFSC</span>
+                <span class="font-mono text-slate-800 block">@model.BankAccountNumber</span>
+                <span class="font-mono text-xs text-slate-500">@model.BankIfscCode</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mandatory Documents Verification (WebP Attachments) -->
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 space-y-4">
+        <h2 class="text-base font-bold text-slate-800 border-b border-slate-100 pb-2">
+            Submitted Identity Documents (Client-Compressed WebP)
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach (var docType in DocumentTypes.All)
+            {
+                var att = model.Attachments.FirstOrDefault(a => a.DocumentType == docType);
+                <div class="p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between space-y-3">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-bold text-slate-800">@docType.Replace("_", " ")</span>
+                            @if (att != null)
+                            {
+                                <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-semibold rounded">
+                                    Verified
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 text-xs font-semibold rounded">
+                                    Missing
+                                </span>
+                            }
+                        </div>
+
+                        @if (att != null)
+                        {
+                            <div class="rounded-lg overflow-hidden border border-slate-200 bg-white">
+                                <a href="@att.FileUrl" target="_blank" title="Click to view full image">
+                                    <img src="@att.FileUrl" alt="@docType" class="h-44 w-full object-cover hover:opacity-90 transition cursor-pointer" />
+                                </a>
+                            </div>
+                            <div class="text-[11px] text-slate-500 mt-2 font-mono flex items-center justify-between">
+                                <span>WebP image</span>
+                                <span>@(att.FileSizeBytes / 1024) KB</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="h-44 rounded-lg border-2 border-dashed border-slate-300 flex items-center justify-center text-slate-400 text-xs text-center p-4">
+                                No document uploaded for this requirement.
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Reviewer Actions Workflow Bar -->
+    @if (model.Status == OnboardingStatus.SentForApproval || model.Status == OnboardingStatus.RevisionRequired)
+    {
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
+            <h3 class="text-base font-bold text-slate-800 mb-4">Workflow Decision</h3>
+
+            <div class="flex flex-wrap items-center gap-3">
+                <button type="button"
+                        @onclick="OpenApproveDialog"
+                        class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg shadow-sm transition">
+                    &check; Approve &amp; Generate Employee Code
+                </button>
+
+                <button type="button"
+                        @onclick="OpenRevisionDialog"
+                        class="px-5 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg shadow-sm transition">
+                    Request Revision
+                </button>
+
+                <button type="button"
+                        @onclick="OpenRejectDialog"
+                        class="px-5 py-2.5 bg-rose-600 hover:bg-rose-700 text-white font-medium rounded-lg shadow-sm transition">
+                    Reject Request
+                </button>
+            </div>
+        </div>
+    }
+
+    <!-- Synchronous Audit Logs Section -->
+    <div class="bg-white border border-slate-200 rounded-xl shadow-sm p-6 space-y-3">
+        <h3 class="text-sm font-bold text-slate-700 uppercase tracking-wider">
+            Audit Trail &amp; Lifecycle Events
+        </h3>
+
+        <div class="divide-y divide-slate-100 text-xs">
+            @if (auditLogs.Count == 0)
+            {
+                <div class="py-3 text-slate-400">No audit events recorded yet.</div>
+            }
+            else
+            {
+                @foreach (var log in auditLogs)
+                {
+                    <div class="py-2.5 flex items-start justify-between">
+                        <div>
+                            <span class="font-mono font-bold text-brand-primary mr-2">@log.Action</span>
+                            <span class="text-slate-600">@log.Details</span>
+                        </div>
+                        <div class="text-slate-400 font-mono text-[11px] flex-shrink-0 ml-4">
+                            @log.CreatedAt.ToLocalTime().ToString("dd MMM yyyy HH:mm:ss")
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<!-- Modal Dialogs for Remarks -->
+<ConfirmDialog IsOpen="@showActionDialog"
+               Title="@dialogTitle"
+               Message="@dialogMessage"
+               ConfirmButtonText="@dialogConfirmText"
+               ConfirmButtonClass="@dialogConfirmClass"
+               RequireInput="@dialogRequireInput"
+               IsInputMandatory="@dialogRequireInput"
+               InputLabel="Reviewer Remarks / Feedback"
+               InputPlaceholder="Provide clear notes explaining this decision..."
+               OnConfirmed="HandleDialogConfirmedAsync"
+               OnCancelled="() => showActionDialog = false" />
+
+<ConfirmDialog IsOpen="@showDeleteConfirm"
+               Title="Delete Request"
+               Message="Are you sure you want to permanently delete this onboarding record? This cannot be undone."
+               ConfirmButtonText="Delete"
+               ConfirmButtonClass="bg-rose-600 hover:bg-rose-700"
+               OnConfirmed="HandleDeleteConfirmedAsync"
+               OnCancelled="() => showDeleteConfirm = false" />
